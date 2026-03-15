@@ -142,13 +142,18 @@ async function submitToEndpoint(formData) {
   const response = await fetch(endpointNode.value.trim(), {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Accept: "application/json"
     },
-    body: JSON.stringify(Object.fromEntries(formData.entries()))
+    body: formData
   });
 
   if (!response.ok) {
+    throw new Error("Submission failed");
+  }
+
+  const payload = await response.json().catch(() => ({}));
+
+  if (payload.success === "false" || payload.success === false) {
     throw new Error("Submission failed");
   }
 }
@@ -209,10 +214,14 @@ if (membershipForm) {
       if (endpoint) {
         await submitToEndpoint(formData);
         membershipForm.reset();
-      } else {
-        buildMailtoPayload(formData);
+        setStatus(
+          "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
+        );
+        closeMembershipModal();
+        return;
       }
 
+      buildMailtoPayload(formData);
       setStatus(
         "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
       );
