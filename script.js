@@ -9,6 +9,7 @@ const membershipModal = document.querySelector("[data-membership-modal]");
 const openMembershipButtons = document.querySelectorAll("[data-open-membership]");
 const closeMembershipButtons = document.querySelectorAll("[data-close-membership]");
 const membershipForm = document.querySelector("#membership-form");
+const membershipSuccess = document.querySelector("#membership-success");
 const statusNode = document.querySelector("#form-status");
 const endpointNode = document.querySelector("#form-endpoint");
 const contactEmailNode = document.querySelector("#contact-email");
@@ -163,6 +164,14 @@ function openMembershipModal() {
     return;
   }
 
+  if (membershipForm) {
+    membershipForm.hidden = false;
+  }
+
+  if (membershipSuccess) {
+    membershipSuccess.hidden = true;
+  }
+
   membershipModal.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -217,7 +226,10 @@ if (membershipForm) {
         setStatus(
           "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
         );
-        closeMembershipModal();
+        membershipForm.hidden = true;
+        if (membershipSuccess) {
+          membershipSuccess.hidden = false;
+        }
         return;
       }
 
@@ -225,7 +237,10 @@ if (membershipForm) {
       setStatus(
         "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
       );
-      closeMembershipModal();
+      membershipForm.hidden = true;
+      if (membershipSuccess) {
+        membershipSuccess.hidden = false;
+      }
     } catch (error) {
       setStatus("The form could not be submitted. Check the endpoint configuration and try again.");
     }

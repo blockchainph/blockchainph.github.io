@@ -621,6 +621,16 @@ h3 {
   gap: 18px;
 }
 
+.success-panel {
+  display: grid;
+  gap: 16px;
+  padding: 18px 4px 4px;
+}
+
+.success-panel[hidden] {
+  display: none;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
