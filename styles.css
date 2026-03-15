@@ -705,6 +705,11 @@ h3 {
   border: 0;
 }
 
+.submit-action[disabled] {
+  opacity: 0.65;
+  cursor: wait;
+}
+
 .privacy-note,
 .modal-note {
   color: var(--muted);
@@ -714,6 +719,13 @@ h3 {
 
 .privacy-note {
   margin-top: -4px;
+}
+
+.modal-note {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .js [data-reveal] {

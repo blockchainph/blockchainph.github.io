@@ -11,6 +11,7 @@ const closeMembershipButtons = document.querySelectorAll("[data-close-membership
 const membershipForm = document.querySelector("#membership-form");
 const membershipSuccess = document.querySelector("#membership-success");
 const statusNode = document.querySelector("#form-status");
+const submitButton = document.querySelector("#membership-submit");
 const endpointNode = document.querySelector("#form-endpoint");
 const contactEmailNode = document.querySelector("#contact-email");
 
@@ -113,6 +114,15 @@ function setStatus(message) {
   }
 }
 
+function setSubmittingState(isSubmitting) {
+  if (!submitButton) {
+    return;
+  }
+
+  submitButton.disabled = isSubmitting;
+  submitButton.textContent = isSubmitting ? "Submitting..." : "Submit Application";
+}
+
 function buildMailtoPayload(formData) {
   const recipient = contactEmailNode.value.trim();
   const subject = encodeURIComponent("BPAP membership application from " + formData.get("name"));
@@ -174,6 +184,10 @@ function openMembershipModal() {
 
   membershipModal.hidden = false;
   document.body.style.overflow = "hidden";
+  setSubmittingState(false);
+  setStatus(
+    "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
+  );
 }
 
 function closeMembershipModal() {
@@ -218,6 +232,8 @@ if (membershipForm) {
 
     const formData = new FormData(membershipForm);
     const endpoint = endpointNode.value.trim();
+    setSubmittingState(true);
+    setStatus("Submitting your application...");
 
     try {
       if (endpoint) {
@@ -230,6 +246,7 @@ if (membershipForm) {
         if (membershipSuccess) {
           membershipSuccess.hidden = false;
         }
+        setSubmittingState(false);
         return;
       }
 
@@ -241,8 +258,10 @@ if (membershipForm) {
       if (membershipSuccess) {
         membershipSuccess.hidden = false;
       }
+      setSubmittingState(false);
     } catch (error) {
       setStatus("The form could not be submitted. Check the endpoint configuration and try again.");
+      setSubmittingState(false);
     }
   });
 }
