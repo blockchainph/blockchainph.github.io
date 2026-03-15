@@ -60,8 +60,9 @@ carousels.forEach(carousel => {
   const prevButton = carousel.querySelector("[data-carousel-prev]");
   const nextButton = carousel.querySelector("[data-carousel-next]");
   const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+  const statusNode = carousel.querySelector("[data-carousel-status]");
 
-  if (!track || slides.length === 0 || !prevButton || !nextButton || !dotsContainer) {
+  if (!track || slides.length === 0 || !prevButton || !nextButton || !dotsContainer || !statusNode) {
     return;
   }
 
@@ -82,9 +83,11 @@ carousels.forEach(carousel => {
     track.style.transform = `translateX(-${index * 100}%)`;
     prevButton.disabled = index === 0;
     nextButton.disabled = index === slides.length - 1;
+    statusNode.textContent = `${index + 1} / ${slides.length}`;
 
     dots.forEach((dot, dotIndex) => {
       dot.classList.toggle("is-active", dotIndex === index);
+      dot.setAttribute("aria-pressed", String(dotIndex === index));
     });
   }
 

@@ -322,17 +322,20 @@ h3 {
 }
 
 .feature-grid,
-.initiative-list {
+.initiative-list,
+.benefits-grid {
   display: grid;
   gap: 16px;
 }
 
-.feature-grid {
+.feature-grid,
+.benefits-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .feature-grid article,
-.initiative-list article {
+.initiative-list article,
+.benefits-grid article {
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -409,6 +412,13 @@ h3 {
   gap: 12px;
 }
 
+.carousel-status {
+  min-width: 54px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-align: center;
+}
+
 .carousel-button {
   min-height: 44px;
   padding: 0 16px;
@@ -463,6 +473,62 @@ h3 {
 .contact-card {
   display: grid;
   gap: 14px;
+}
+
+.membership-benefits-card {
+  display: grid;
+  gap: 22px;
+}
+
+.benefits-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.benefits-grid p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.site-footer {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  padding: 18px 4px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.footer-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.footer-copy {
+  margin-top: 8px;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--text);
 }
 
 .modal-backdrop {
@@ -606,10 +672,15 @@ h3 {
   border: 0;
 }
 
+.privacy-note,
 .modal-note {
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.65;
+}
+
+.privacy-note {
+  margin-top: -4px;
 }
 
 .js [data-reveal] {
@@ -657,6 +728,7 @@ h3 {
 
   .audience-grid,
   .feature-grid,
+  .benefits-grid,
   .activity-layout,
   .initiative-list,
   .section-grid {
@@ -665,6 +737,10 @@ h3 {
 
   .carousel-controls {
     flex-wrap: wrap;
+  }
+
+  .site-footer {
+    flex-direction: column;
   }
 }
 
@@ -815,6 +891,10 @@ h3 {
   .carousel-button:last-child {
     justify-self: end;
   }
+
+  .site-footer {
+    padding-top: 8px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -892,6 +972,7 @@ h3 {
     grid-template-columns: 1fr 1fr;
   }
 
+  .carousel-status,
   .carousel-dots {
     grid-column: 1 / -1;
     justify-content: center;
