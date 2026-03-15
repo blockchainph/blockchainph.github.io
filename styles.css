@@ -477,11 +477,19 @@ h3 {
 
 .membership-benefits-card {
   display: grid;
+  gap: 26px;
+}
+
+.benefits-intro {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 22px;
+  align-items: end;
 }
 
 .benefits-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .benefits-grid p {
@@ -489,6 +497,21 @@ h3 {
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.65;
+}
+
+.benefits-grid article {
+  min-height: 100%;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.benefit-number {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #ffb59c;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .site-footer {
@@ -728,10 +751,14 @@ h3 {
 
   .audience-grid,
   .feature-grid,
-  .benefits-grid,
   .activity-layout,
   .initiative-list,
   .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-intro,
+  .benefits-grid {
     grid-template-columns: 1fr;
   }
 
