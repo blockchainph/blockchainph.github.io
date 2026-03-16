@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights | BPAP</title>
+  <meta
+    name="description"
+    content="Insights from BPAP on blockchain, decentralization, cybersecurity, and emerging technology."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="icon" type="image/png" href="../bpap-logo.png">
+  <link rel="apple-touch-icon" href="../bpap-logo.png">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <main class="article-landing">
+    <header class="topbar" data-reveal>
+      <a class="brand" href="/">
+        <img class="brand-logo" src="../bpap-logo.png" alt="BPAP logo">
+        <span>BPAP</span>
+      </a>
+      <nav class="topnav" aria-label="Section navigation">
+        <a href="/">Home</a>
+        <a href="/#activities">Activities</a>
+        <a href="/insights/" class="active">Insights</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="article-hero insights-hero" data-reveal>
+      <p class="article-kicker">Insights</p>
+      <h1 class="article-title insights-title">Articles, essays, and practitioner perspectives from the BPAP community.</h1>
+      <p class="article-meta">
+        BPAP Insights is a space for members and contributors to publish reflections, analysis, and practical
+        perspectives on blockchain, cybersecurity, digital assets, and emerging technology in the Philippine context.
+      </p>
+      <div class="hero-actions">
+        <button class="primary-action" type="button" data-open-contribution>Contribute an Article</button>
+        <button class="secondary-action" type="button" data-open-membership>Become a Member</button>
+      </div>
+    </section>
+
+    <section class="insights-listing" data-reveal>
+      <article class="insight-card">
+        <p class="article-kicker">Essay</p>
+        <h2>The Illusion of Decentralization in Cryptocurrencies</h2>
+        <p class="insight-author">By Ferdie James Nervida</p>
+        <p class="body-copy">
+          A closer look at how internet infrastructure, power systems, and hardware manufacturing shape the
+          practical limits of decentralization in cryptocurrency networks.
+        </p>
+        <a class="primary-action" href="/insights/the-illusion-of-decentralization-in-cryptocurrencies/">Read Article</a>
+      </article>
+
+      <article class="insight-card">
+        <p class="article-kicker">Essay</p>
+        <h2>Tracing Monero: Following Behavior When the Trail Goes Dark</h2>
+        <p class="insight-author">By Ferdie James Nervida</p>
+        <p class="body-copy">
+          An examination of how behavioral analysis remains useful in investigations even when on-chain
+          transaction visibility disappears inside privacy-preserving systems.
+        </p>
+        <a class="primary-action" href="/insights/tracing-monero-following-behavior-when-the-trail-goes-dark/">Read Article</a>
+      </article>
+    </section>
+
+    <footer class="site-footer" data-reveal>
+      <div>
+        <p class="footer-title">Blockchain Practitioners Association of the Philippines</p>
+        <p class="footer-copy">Professional community for blockchain practitioners, ecosystem collaboration, and responsible industry growth.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:hello@blockchainph.org">Email</a>
+        <button class="footer-button" type="button" data-open-contribution>Contribute</button>
+        <button class="footer-button" type="button" data-open-membership>Become a Member</button>
+        <a href="/">Home</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" data-membership-modal hidden>
+    <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="membership-modal-title">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">BPAP Membership</p>
+          <h2 id="membership-modal-title">Apply for Membership</h2>
+        </div>
+        <button class="modal-close" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
+      </div>
+
+      <button class="modal-close modal-close-floating" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
+
+      <form class="membership-form" id="membership-form" novalidate>
+        <input type="hidden" id="membership-form-endpoint" value="https://formsubmit.co/ajax/hello@blockchainph.org">
+        <input type="hidden" id="membership-contact-email" value="hello@blockchainph.org">
+        <input type="hidden" name="_subject" value="New BPAP membership application">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="form-grid">
+          <label>1. Full Name<input type="text" name="name" placeholder="Juan Dela Cruz" required></label>
+          <label>2. Email Address<input type="email" name="email" placeholder="name@company.com" required></label>
+          <label>3. Mobile Number<input type="tel" name="mobile" placeholder="+63 9XX XXX XXXX" required></label>
+          <label>4. City / Province<input type="text" name="location" placeholder="City / Province" required></label>
+          <label>5. Organization / Company<input type="text" name="organization" placeholder="Organization / Company" required></label>
+          <label>6. Current Role or Profession<input type="text" name="role" placeholder="Current Role or Profession" required></label>
+        </div>
+
+        <fieldset class="field-group">
+          <legend>7. Area of Expertise in Blockchain</legend>
+          <div class="checkbox-list">
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Development">Blockchain Development</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Research / Education">Blockchain Research / Education</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Crypto Trading / Investment">Crypto Trading / Investment</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Forensics / Investigations">Blockchain Forensics / Investigations</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Cybersecurity">Cybersecurity</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="DeFi / Web3">DeFi / Web3</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Government / Policy">Government / Policy</label>
+            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Other">Other</label>
+          </div>
+        </fieldset>
+
+        <label>8. Brief description of your blockchain experience<textarea name="experience" rows="5" placeholder="Share your blockchain experience." required></textarea></label>
+
+        <fieldset class="field-group">
+          <legend>9. How would you like to contribute to BPAP?</legend>
+          <div class="checkbox-list">
+            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Speaker / Trainer">Speaker / Trainer</label>
+            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Research Contributor">Research Contributor</label>
+            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Community Builder">Community Builder</label>
+            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Policy Discussions">Policy Discussions</label>
+            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Industry Collaboration">Industry Collaboration</label>
+          </div>
+        </fieldset>
+
+        <label>10. LinkedIn or Professional Profile<input type="text" name="profile" placeholder="LinkedIn URL, profile link, or handle"></label>
+
+        <button class="primary-action submit-action" id="membership-submit" type="submit">Submit Application</button>
+        <p class="privacy-note">By submitting this form, you agree that BPAP may use the information provided to review your membership application and contact you about association-related matters.</p>
+        <p class="modal-note" id="membership-form-status" aria-live="polite">Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed.</p>
+      </form>
+
+      <div class="success-panel" id="membership-success" hidden>
+        <p class="eyebrow">Application Received</p>
+        <h2>Thank you for submitting your membership application.</h2>
+        <p class="body-copy">We have received your details and will review your submission. BPAP will contact you through the email address you provided once your membership application has been assessed.</p>
+        <button class="primary-action submit-action" type="button" data-close-membership>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" data-contribution-modal hidden>
+    <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="contribution-modal-title">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">BPAP Insights</p>
+          <h2 id="contribution-modal-title">Contribute an Article</h2>
+        </div>
+        <button class="modal-close" type="button" aria-label="Close contribution form" data-close-contribution>&times;</button>
+      </div>
+      <button class="modal-close modal-close-floating" type="button" aria-label="Close contribution form" data-close-contribution>&times;</button>
+      <form class="membership-form" id="contribution-form" novalidate>
+        <input type="hidden" id="contribution-form-endpoint" value="https://formsubmit.co/ajax/hello@blockchainph.org">
+        <input type="hidden" id="contribution-contact-email" value="hello@blockchainph.org">
+        <input type="hidden" name="_subject" value="New BPAP insights contribution">
+        <input type="hidden" name="_template" value="table">
+        <div class="form-grid">
+          <label>1. Full Name<input type="text" name="name" placeholder="Juan Dela Cruz" required></label>
+          <label>2. Email Address<input type="email" name="email" placeholder="name@company.com" required></label>
+          <label>3. Organization / Affiliation<input type="text" name="organization" placeholder="Organization / Affiliation" required></label>
+          <label>4. Current Role or Profession<input type="text" name="role" placeholder="Current Role or Profession" required></label>
+          <label>5. Proposed Article Title<input type="text" name="title" placeholder="Title of your proposed article" required></label>
+          <label>6. Topic / Category<input type="text" name="topic" placeholder="e.g. policy, privacy, cybersecurity, web3" required></label>
+        </div>
+        <label>7. Short Abstract or Summary<textarea name="abstract" rows="5" placeholder="Summarize your proposed article." required></textarea></label>
+        <label>8. Draft Link or Supporting Reference<input type="text" name="link" placeholder="Google Doc, Notion, profile link, or N/A"></label>
+        <label>9. LinkedIn or Professional Profile<input type="text" name="profile" placeholder="LinkedIn URL, profile link, handle, or N/A"></label>
+        <button class="primary-action submit-action" id="contribution-submit" type="submit">Submit Contribution</button>
+        <p class="privacy-note">By submitting this form, you agree that BPAP may use the information provided to review your proposed contribution and contact you regarding editorial follow-up.</p>
+        <p class="modal-note" id="contribution-form-status" aria-live="polite">Thank you for your interest in contributing to BPAP Insights. We will review your submission and contact you through the details you provided.</p>
+      </form>
+      <div class="success-panel" id="contribution-success" hidden>
+        <p class="eyebrow">Contribution Received</p>
+        <h2>Thank you for submitting your article proposal.</h2>
+        <p class="body-copy">We have received your submission and will review it for BPAP Insights. We will contact you through the email address you provided for the next steps.</p>
+        <button class="primary-action submit-action" type="button" data-close-contribution>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

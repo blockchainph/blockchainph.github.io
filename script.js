@@ -5,15 +5,85 @@ const revealNodes = document.querySelectorAll("[data-reveal]");
 const navLinks = document.querySelectorAll(".topnav a");
 const sections = [...document.querySelectorAll("section[id]")];
 const carousels = document.querySelectorAll("[data-carousel]");
-const membershipModal = document.querySelector("[data-membership-modal]");
-const openMembershipButtons = document.querySelectorAll("[data-open-membership]");
-const closeMembershipButtons = document.querySelectorAll("[data-close-membership]");
-const membershipForm = document.querySelector("#membership-form");
-const membershipSuccess = document.querySelector("#membership-success");
-const statusNode = document.querySelector("#form-status");
-const submitButton = document.querySelector("#membership-submit");
-const endpointNode = document.querySelector("#form-endpoint");
-const contactEmailNode = document.querySelector("#contact-email");
+const modalConfigs = [
+  {
+    modal: document.querySelector("[data-membership-modal]"),
+    openButtons: document.querySelectorAll("[data-open-membership]"),
+    closeButtons: document.querySelectorAll("[data-close-membership]"),
+    form: document.querySelector("#membership-form"),
+    success: document.querySelector("#membership-success"),
+    statusNode: document.querySelector("#membership-form-status"),
+    submitButton: document.querySelector("#membership-submit"),
+    endpointNode: document.querySelector("#membership-form-endpoint"),
+    fallbackNode: document.querySelector("#membership-contact-email"),
+    defaultStatus:
+      "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed.",
+    submitLabel: "Submit Application",
+    submittingLabel: "Submitting...",
+    errorMessage: "The form could not be submitted. Check the endpoint configuration and try again.",
+    buildMailtoPayload(formData, recipient) {
+      const subject = encodeURIComponent("BPAP membership application from " + formData.get("name"));
+      const expertise = formData.getAll("expertise").join(", ") || "-";
+      const contribution = formData.getAll("contribution").join(", ") || "-";
+      const body = encodeURIComponent(
+        [
+          "Full Name: " + formData.get("name"),
+          "Email Address: " + formData.get("email"),
+          "Mobile Number: " + (formData.get("mobile") || "-"),
+          "City / Province: " + (formData.get("location") || "-"),
+          "Organization / Company: " + (formData.get("organization") || "-"),
+          "Current Role or Profession: " + (formData.get("role") || "-"),
+          "Area of Expertise in Blockchain: " + expertise,
+          "",
+          "Brief description of blockchain experience:",
+          formData.get("experience"),
+          "",
+          "How would you like to contribute to BPAP?: " + contribution,
+          "LinkedIn or Professional Profile: " + (formData.get("profile") || "-")
+        ].join("\n")
+      );
+
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    }
+  },
+  {
+    modal: document.querySelector("[data-contribution-modal]"),
+    openButtons: document.querySelectorAll("[data-open-contribution]"),
+    closeButtons: document.querySelectorAll("[data-close-contribution]"),
+    form: document.querySelector("#contribution-form"),
+    success: document.querySelector("#contribution-success"),
+    statusNode: document.querySelector("#contribution-form-status"),
+    submitButton: document.querySelector("#contribution-submit"),
+    endpointNode: document.querySelector("#contribution-form-endpoint"),
+    fallbackNode: document.querySelector("#contribution-contact-email"),
+    defaultStatus:
+      "Thank you for your interest in contributing to BPAP Insights. We will review your submission and contact you through the details you provided.",
+    submitLabel: "Submit Contribution",
+    submittingLabel: "Submitting...",
+    errorMessage: "The contribution form could not be submitted. Check the endpoint configuration and try again.",
+    buildMailtoPayload(formData, recipient) {
+      const subject = encodeURIComponent("BPAP Insights contribution from " + formData.get("name"));
+      const body = encodeURIComponent(
+        [
+          "Full Name: " + formData.get("name"),
+          "Email Address: " + formData.get("email"),
+          "Organization / Affiliation: " + (formData.get("organization") || "-"),
+          "Current Role or Profession: " + (formData.get("role") || "-"),
+          "Article Title: " + formData.get("title"),
+          "Topic / Category: " + formData.get("topic"),
+          "",
+          "Short Abstract:",
+          formData.get("abstract"),
+          "",
+          "Draft / Supporting Link: " + (formData.get("link") || "-"),
+          "LinkedIn or Professional Profile: " + (formData.get("profile") || "-")
+        ].join("\n")
+      );
+
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    }
+  }
+].filter(config => config.modal);
 
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
@@ -108,49 +178,23 @@ carousels.forEach(carousel => {
   updateCarousel(0);
 });
 
-function setStatus(message) {
-  if (statusNode) {
-    statusNode.textContent = message;
+function setStatus(config, message) {
+  if (config.statusNode) {
+    config.statusNode.textContent = message;
   }
 }
 
-function setSubmittingState(isSubmitting) {
-  if (!submitButton) {
+function setSubmittingState(config, isSubmitting) {
+  if (!config.submitButton) {
     return;
   }
 
-  submitButton.disabled = isSubmitting;
-  submitButton.textContent = isSubmitting ? "Submitting..." : "Submit Application";
+  config.submitButton.disabled = isSubmitting;
+  config.submitButton.textContent = isSubmitting ? config.submittingLabel : config.submitLabel;
 }
 
-function buildMailtoPayload(formData) {
-  const recipient = contactEmailNode.value.trim();
-  const subject = encodeURIComponent("BPAP membership application from " + formData.get("name"));
-  const expertise = formData.getAll("expertise").join(", ") || "-";
-  const contribution = formData.getAll("contribution").join(", ") || "-";
-  const body = encodeURIComponent(
-    [
-      "Full Name: " + formData.get("name"),
-      "Email Address: " + formData.get("email"),
-      "Mobile Number: " + (formData.get("mobile") || "-"),
-      "City / Province: " + (formData.get("location") || "-"),
-      "Organization / Company: " + (formData.get("organization") || "-"),
-      "Current Role or Profession: " + (formData.get("role") || "-"),
-      "Area of Expertise in Blockchain: " + expertise,
-      "",
-      "Brief description of blockchain experience:",
-      formData.get("experience"),
-      "",
-      "How would you like to contribute to BPAP?: " + contribution,
-      "LinkedIn or Professional Profile: " + (formData.get("profile") || "-")
-    ].join("\n")
-  );
-
-  window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-}
-
-async function submitToEndpoint(formData) {
-  const response = await fetch(endpointNode.value.trim(), {
+async function submitToEndpoint(endpoint, formData) {
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       Accept: "application/json"
@@ -169,99 +213,102 @@ async function submitToEndpoint(formData) {
   }
 }
 
-function openMembershipModal() {
-  if (!membershipModal) {
+function openModal(config) {
+  if (!config.modal) {
     return;
   }
 
-  if (membershipForm) {
-    membershipForm.hidden = false;
+  if (config.form) {
+    config.form.hidden = false;
   }
 
-  if (membershipSuccess) {
-    membershipSuccess.hidden = true;
+  if (config.success) {
+    config.success.hidden = true;
   }
 
-  membershipModal.hidden = false;
+  config.modal.hidden = false;
   document.body.style.overflow = "hidden";
-  setSubmittingState(false);
-  setStatus(
-    "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
-  );
+  setSubmittingState(config, false);
+  setStatus(config, config.defaultStatus);
 }
 
-function closeMembershipModal() {
-  if (!membershipModal) {
+function closeModal(config) {
+  if (!config.modal) {
     return;
   }
 
-  membershipModal.hidden = true;
+  config.modal.hidden = true;
   document.body.style.overflow = "";
 }
 
-openMembershipButtons.forEach(button => {
-  button.addEventListener("click", openMembershipModal);
-});
+modalConfigs.forEach(config => {
+  config.openButtons.forEach(button => {
+    button.addEventListener("click", () => openModal(config));
+  });
 
-closeMembershipButtons.forEach(button => {
-  button.addEventListener("click", closeMembershipModal);
-});
+  config.closeButtons.forEach(button => {
+    button.addEventListener("click", () => closeModal(config));
+  });
 
-if (membershipModal) {
-  membershipModal.addEventListener("click", event => {
-    if (event.target === membershipModal) {
-      closeMembershipModal();
+  config.modal.addEventListener("click", event => {
+    if (event.target === config.modal) {
+      closeModal(config);
     }
   });
-}
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && membershipModal && !membershipModal.hidden) {
-    closeMembershipModal();
+  if (!config.form) {
+    return;
   }
-});
 
-if (membershipForm) {
-  membershipForm.addEventListener("submit", async event => {
+  config.form.addEventListener("submit", async event => {
     event.preventDefault();
 
-    if (!membershipForm.reportValidity()) {
-      setStatus("Please complete the required fields before submitting.");
+    if (!config.form.reportValidity()) {
+      setStatus(config, "Please complete the required fields before submitting.");
       return;
     }
 
-    const formData = new FormData(membershipForm);
-    const endpoint = endpointNode.value.trim();
-    setSubmittingState(true);
-    setStatus("Submitting your application...");
+    const formData = new FormData(config.form);
+    const endpoint = config.endpointNode ? config.endpointNode.value.trim() : "";
+    const fallbackRecipient = config.fallbackNode ? config.fallbackNode.value.trim() : "";
+    setSubmittingState(config, true);
+    setStatus(config, config.submittingLabel);
 
     try {
       if (endpoint) {
-        await submitToEndpoint(formData);
-        membershipForm.reset();
-        setStatus(
-          "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
-        );
-        membershipForm.hidden = true;
-        if (membershipSuccess) {
-          membershipSuccess.hidden = false;
+        await submitToEndpoint(endpoint, formData);
+        config.form.reset();
+        setStatus(config, config.defaultStatus);
+        config.form.hidden = true;
+        if (config.success) {
+          config.success.hidden = false;
         }
-        setSubmittingState(false);
+        setSubmittingState(config, false);
         return;
       }
 
-      buildMailtoPayload(formData);
-      setStatus(
-        "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed."
-      );
-      membershipForm.hidden = true;
-      if (membershipSuccess) {
-        membershipSuccess.hidden = false;
+      config.buildMailtoPayload(formData, fallbackRecipient);
+      setStatus(config, config.defaultStatus);
+      config.form.hidden = true;
+      if (config.success) {
+        config.success.hidden = false;
       }
-      setSubmittingState(false);
+      setSubmittingState(config, false);
     } catch (error) {
-      setStatus("The form could not be submitted. Check the endpoint configuration and try again.");
-      setSubmittingState(false);
+      setStatus(config, config.errorMessage);
+      setSubmittingState(config, false);
     }
   });
-}
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") {
+    return;
+  }
+
+  modalConfigs.forEach(config => {
+    if (config.modal && !config.modal.hidden) {
+      closeModal(config);
+    }
+  });
+});
