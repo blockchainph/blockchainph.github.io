@@ -406,6 +406,20 @@ h3 {
   height: auto;
 }
 
+.activity-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+}
+
+.activity-media-grid img {
+  height: 100%;
+  min-height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .activity-copy {
   display: grid;
   gap: 14px;
@@ -737,6 +751,123 @@ h3 {
   backdrop-filter: blur(12px);
   display: grid;
   gap: 14px;
+}
+
+.academy-hero {
+  gap: 16px;
+  text-align: center;
+  justify-items: center;
+}
+
+.academy-title {
+  max-width: 15ch;
+}
+
+.academy-status-card {
+  display: grid;
+  gap: 16px;
+  text-align: center;
+  justify-items: center;
+}
+
+.academy-status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffb59c;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.academy-points {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.academy-points li {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.academy-offerings-card {
+  display: grid;
+  gap: 22px;
+}
+
+.academy-offerings-card .feature-head {
+  text-align: center;
+  justify-self: center;
+}
+
+.academy-offering {
+  display: grid;
+  gap: 14px;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.academy-offering h3 {
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  line-height: 1.18;
+}
+
+.academy-offering-meta {
+  color: #ffb59c;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.academy-offering .primary-action {
+  margin-top: 6px;
+  width: fit-content;
+}
+
+.academy-hero .article-meta,
+.academy-status-card .body-copy,
+.article-cta .body-copy {
+  text-align: center;
+}
+
+.academy-status-card .body-copy,
+.article-cta .body-copy {
+  max-width: 56ch;
+}
+
+.academy-status-card .academy-status-pill,
+.article-cta .hero-actions,
+.academy-hero .hero-actions {
+  justify-content: center;
+}
+
+.academy-form-intro {
+  margin-bottom: 2px;
+}
+
+.membership-form select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+}
+
+.membership-form select:focus {
+  outline: 2px solid rgba(255, 100, 48, 0.18);
+  border-color: var(--line-strong);
 }
 
 .modal-backdrop {
@@ -1091,6 +1222,14 @@ h3 {
 
   .activity-layout {
     gap: 16px;
+  }
+
+  .activity-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-media-grid img {
+    min-height: auto;
   }
 
   .form-grid,

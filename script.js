@@ -82,6 +82,43 @@ const modalConfigs = [
 
       window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
     }
+  },
+  {
+    modal: document.querySelector("[data-academy-modal]"),
+    openButtons: document.querySelectorAll("[data-open-academy]"),
+    closeButtons: document.querySelectorAll("[data-close-academy]"),
+    form: document.querySelector("#academy-form"),
+    success: document.querySelector("#academy-success"),
+    statusNode: document.querySelector("#academy-form-status"),
+    submitButton: document.querySelector("#academy-submit"),
+    endpointNode: document.querySelector("#academy-form-endpoint"),
+    fallbackNode: document.querySelector("#academy-contact-email"),
+    courseField: document.querySelector("#academy-course-interest"),
+    defaultStatus:
+      "Thank you for your interest in BPAP Academy. We will reach out once enrollment details for your selected course are available.",
+    submitLabel: "Submit Pre-Registration",
+    submittingLabel: "Submitting...",
+    errorMessage: "The academy pre-registration form could not be submitted. Check the endpoint configuration and try again.",
+    buildMailtoPayload(formData, recipient) {
+      const subject = encodeURIComponent("BPAP Academy pre-registration from " + formData.get("name"));
+      const body = encodeURIComponent(
+        [
+          "Full Name: " + formData.get("name"),
+          "Email Address: " + formData.get("email"),
+          "Mobile Number: " + (formData.get("mobile") || "-"),
+          "Organization / Company: " + (formData.get("organization") || "-"),
+          "Current Role or Profession: " + (formData.get("role") || "-"),
+          "City / Province: " + (formData.get("location") || "-"),
+          "Course of Interest: " + (formData.get("course_interest") || "-"),
+          "Preferred Learning Format: " + (formData.get("format") || "-"),
+          "",
+          "Message or Learning Goal:",
+          formData.get("message") || "-"
+        ].join("\n")
+      );
+
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    }
   }
 ].filter(config => config.modal);
 
@@ -213,7 +250,7 @@ async function submitToEndpoint(endpoint, formData) {
   }
 }
 
-function openModal(config) {
+function openModal(config, triggerButton) {
   if (!config.modal) {
     return;
   }
@@ -230,6 +267,10 @@ function openModal(config) {
   document.body.style.overflow = "hidden";
   setSubmittingState(config, false);
   setStatus(config, config.defaultStatus);
+
+  if (config.courseField && triggerButton && triggerButton.dataset.course) {
+    config.courseField.value = triggerButton.dataset.course;
+  }
 }
 
 function closeModal(config) {
@@ -243,7 +284,7 @@ function closeModal(config) {
 
 modalConfigs.forEach(config => {
   config.openButtons.forEach(button => {
-    button.addEventListener("click", () => openModal(config));
+    button.addEventListener("click", () => openModal(config, button));
   });
 
   config.closeButtons.forEach(button => {
