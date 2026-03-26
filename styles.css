@@ -1121,6 +1121,11 @@ h3 {
 }
 
 @media (max-width: 720px) {
+  .article-landing .topbar {
+    position: static;
+    top: auto;
+  }
+
   .topbar {
     top: 10px;
     padding: 10px 12px;
@@ -1298,6 +1303,19 @@ h3 {
     max-width: none;
   }
 
+  .article-hero {
+    gap: 14px;
+  }
+
+  .article-meta {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .article-hero .hero-actions {
+    margin-top: 10px;
+  }
+
   .insight-card {
     padding: 24px 22px;
     border-radius: 18px;
@@ -1316,6 +1334,10 @@ h3 {
 }
 
 @media (max-width: 640px) {
+  .article-landing .topbar {
+    margin-bottom: -2px;
+  }
+
   .topbar {
     flex-direction: column;
     align-items: stretch;
@@ -1363,6 +1385,11 @@ h3 {
 }
 
 @media (max-width: 420px) {
+  .article-title {
+    font-size: clamp(1.55rem, 8vw, 2rem);
+    line-height: 1.12;
+  }
+
   .landing {
     width: min(calc(100% - 18px), var(--max-width));
   }
