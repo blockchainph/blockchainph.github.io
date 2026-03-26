@@ -2,6 +2,7 @@ document.documentElement.classList.remove("no-js");
 document.documentElement.classList.add("js");
 
 const revealNodes = document.querySelectorAll("[data-reveal]");
+const articleRevealNodes = document.querySelectorAll(".article-landing [data-reveal]");
 const navLinks = document.querySelectorAll(".topnav a");
 const sections = [...document.querySelectorAll("section[id]")];
 const carousels = document.querySelectorAll("[data-carousel]");
@@ -121,6 +122,8 @@ const modalConfigs = [
     }
   }
 ].filter(config => config.modal);
+
+articleRevealNodes.forEach(node => node.classList.add("is-visible"));
 
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
