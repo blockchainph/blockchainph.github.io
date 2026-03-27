@@ -201,6 +201,23 @@
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function formatMessageHtml(text) {
+      var escaped = escapeHtml(text);
+
+      return escaped
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br>");
+    }
+
     function addMessage(role, text) {
       var row = document.createElement("div");
       row.className = "msg-row " + (role === "user" ? "user" : "bot");
@@ -223,7 +240,7 @@
 
       var bubbleEl = document.createElement("div");
       bubbleEl.className = "msg " + (role === "user" ? "user" : "bot");
-      bubbleEl.textContent = text;
+      bubbleEl.innerHTML = formatMessageHtml(text);
 
       row.appendChild(bubbleEl);
       messagesEl.appendChild(row);
@@ -412,12 +429,12 @@
           }
 
           finalText += decoder.decode(chunk.value, { stream: true });
-          assistantBubble.textContent = finalText;
+          assistantBubble.innerHTML = formatMessageHtml(finalText);
           scrollToBottom();
         }
 
         finalText = finalText.trim() || "Sorry, I couldn't generate a response.";
-        assistantBubble.textContent = finalText;
+        assistantBubble.innerHTML = formatMessageHtml(finalText);
         conversation.push({ role: "assistant", content: finalText });
         if (shouldTriggerHandoff(finalText)) {
           renderHandoffForm();
