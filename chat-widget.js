@@ -57,8 +57,10 @@
     ".controls{display:flex;gap:8px}",
     ".icon-btn{width:34px;height:34px;border:none;border-radius:10px;background:rgba(255,255,255,.08);color:#fff7f2;cursor:pointer;font-size:16px;line-height:1}",
     ".messages{flex:1;overflow:auto;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,100,48,.04) 100%)}",
-    ".msg-row{display:flex;margin-bottom:12px}",
+    ".msg-row{display:flex;align-items:flex-end;gap:10px;margin-bottom:12px}",
     ".msg-row.user{justify-content:flex-end}",
+    ".avatar{width:32px;height:32px;flex:0 0 32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),#e2632f);box-shadow:0 10px 24px rgba(0,0,0,.24)}",
+    ".avatar svg{width:20px;height:20px;display:block}",
     ".msg{max-width:82%;padding:12px 14px;border-radius:16px;font-size:14px;line-height:1.45;white-space:pre-wrap;word-break:break-word;box-shadow:0 10px 28px rgba(0,0,0,.18)}",
     ".msg.bot{background:rgba(255,255,255,.06);color:#fff7f2;border:1px solid rgba(255,255,255,.07);border-bottom-left-radius:6px}",
     ".msg.user{background:linear-gradient(135deg,var(--primary),#e2632f);color:#fff7f2;border-bottom-right-radius:6px;font-weight:600}",
@@ -95,7 +97,17 @@
     bubble.className = "bubble";
     bubble.type = "button";
     bubble.setAttribute("aria-label", "Open chat");
-    bubble.textContent = "✦";
+    bubble.innerHTML =
+      '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+      '<defs><linearGradient id="bpap-node" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff7f2"/><stop offset="100%" stop-color="#ffd7c7"/></linearGradient></defs>' +
+      '<path d="M18 20L32 12L46 20V36L32 44L18 36Z" fill="none" stroke="url(#bpap-node)" stroke-width="4" stroke-linejoin="round"/>' +
+      '<circle cx="18" cy="20" r="5" fill="#fff7f2"/>' +
+      '<circle cx="46" cy="20" r="5" fill="#fff7f2"/>' +
+      '<circle cx="32" cy="12" r="5" fill="#fff7f2"/>' +
+      '<circle cx="18" cy="36" r="5" fill="#fff7f2"/>' +
+      '<circle cx="46" cy="36" r="5" fill="#fff7f2"/>' +
+      '<circle cx="32" cy="44" r="5" fill="#fff7f2"/>' +
+      '</svg>';
 
     var panel = document.createElement("section");
     panel.className = "panel";
@@ -175,6 +187,22 @@
     function addMessage(role, text) {
       var row = document.createElement("div");
       row.className = "msg-row " + (role === "user" ? "user" : "bot");
+
+      if (role !== "user") {
+        var avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.innerHTML =
+          '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+          '<path d="M18 20L32 12L46 20V36L32 44L18 36Z" fill="none" stroke="#fff7f2" stroke-width="4" stroke-linejoin="round"/>' +
+          '<circle cx="18" cy="20" r="5" fill="#fff7f2"/>' +
+          '<circle cx="46" cy="20" r="5" fill="#fff7f2"/>' +
+          '<circle cx="32" cy="12" r="5" fill="#fff7f2"/>' +
+          '<circle cx="18" cy="36" r="5" fill="#fff7f2"/>' +
+          '<circle cx="46" cy="36" r="5" fill="#fff7f2"/>' +
+          '<circle cx="32" cy="44" r="5" fill="#fff7f2"/>' +
+          '</svg>';
+        row.appendChild(avatar);
+      }
 
       var bubbleEl = document.createElement("div");
       bubbleEl.className = "msg " + (role === "user" ? "user" : "bot");
