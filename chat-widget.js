@@ -47,6 +47,10 @@
     style.textContent = [
     ":host{all:initial}",
     ".wrap{position:fixed;right:20px;bottom:20px;z-index:2147483000;font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#fff7f2}",
+    ".launcher{display:flex;align-items:center;gap:10px}",
+    ".chat-nudge{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(255,181,156,.18);border-radius:999px;background:rgba(18,7,7,.92);color:#fff7f2;box-shadow:0 18px 40px rgba(0,0,0,.34);font-size:13px;font-weight:700;letter-spacing:.01em;cursor:pointer;transition:transform .18s ease,opacity .18s ease}",
+    ".chat-nudge::after{content:'';width:8px;height:8px;border-radius:999px;background:#ffb59c;box-shadow:0 0 0 0 rgba(255,181,156,.55);animation:ping 1.8s infinite}",
+    ".chat-nudge:hover{transform:translateY(-1px)}",
     ".bubble{width:62px;height:62px;border:1px solid rgba(255,181,156,.18);border-radius:999px;background:linear-gradient(135deg,var(--primary),#e2632f);color:#fff7f2;cursor:pointer;box-shadow:0 20px 48px rgba(0,0,0,.44);display:flex;align-items:center;justify-content:center;transition:transform .18s ease,box-shadow .18s ease;font-weight:800}",
     ".bubble:hover{transform:translateY(-2px);box-shadow:0 26px 58px rgba(0,0,0,.44)}",
     ".panel{width:min(380px,calc(100vw - 24px));height:min(640px,calc(100vh - 32px));background:rgba(18,7,7,.94);border:1px solid rgba(255,255,255,.1);border-radius:22px;box-shadow:0 28px 80px rgba(0,0,0,.5);overflow:hidden;display:none;flex-direction:column;backdrop-filter:blur(18px)}",
@@ -83,8 +87,9 @@
     ".handoff-btn[disabled]{opacity:.55;cursor:not-allowed}",
     ".handoff-status{margin-top:8px;font-size:12px;color:#d8b8ab}",
     "@keyframes bounce{0%,80%,100%{transform:scale(.7);opacity:.55}40%{transform:scale(1);opacity:1}}",
+    "@keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,181,156,.55)}70%{box-shadow:0 0 0 10px rgba(255,181,156,0)}100%{box-shadow:0 0 0 0 rgba(255,181,156,0)}}",
     "@keyframes slideIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}",
-    "@media (max-width:640px){.wrap{right:12px;bottom:12px}.panel{width:calc(100vw - 24px);height:min(72vh,620px)}.bubble{width:58px;height:58px}}",
+    "@media (max-width:640px){.wrap{right:12px;bottom:12px}.panel{width:calc(100vw - 24px);height:min(72vh,620px)}.bubble{width:58px;height:58px}.chat-nudge{padding:9px 12px;font-size:12px}}",
     ].join("");
 
     var wrap = document.createElement("div");
@@ -131,8 +136,20 @@
       "</div>";
 
     root.appendChild(style);
+    var launcher = document.createElement("div");
+    launcher.className = "launcher";
+
+    var nudge = document.createElement("button");
+    nudge.className = "chat-nudge";
+    nudge.type = "button";
+    nudge.textContent = "Chat here";
+    nudge.setAttribute("aria-label", "Open support chat");
+
+    launcher.appendChild(nudge);
+    launcher.appendChild(bubble);
+
     wrap.appendChild(panel);
-    wrap.appendChild(bubble);
+    wrap.appendChild(launcher);
     root.appendChild(wrap);
 
     var messagesEl = panel.querySelector(".messages");
@@ -326,14 +343,14 @@
     function openChat() {
       isOpen = true;
       panel.classList.add("open");
-      bubble.style.display = "none";
+      launcher.style.display = "none";
       inputEl.focus();
     }
 
     function closeChat() {
       isOpen = false;
       panel.classList.remove("open");
-      bubble.style.display = "flex";
+      launcher.style.display = "flex";
     }
 
     function setLoading(loading) {
@@ -421,6 +438,7 @@
     }
 
     bubble.addEventListener("click", openChat);
+    nudge.addEventListener("click", openChat);
 
     panel.addEventListener("click", function (event) {
       var target = event.target;
