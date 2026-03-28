@@ -753,6 +753,11 @@ h3 {
   gap: 16px;
 }
 
+.comment-form textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
 .field-help {
   color: var(--muted);
   font-size: 0.84rem;

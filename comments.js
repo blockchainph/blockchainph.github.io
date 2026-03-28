@@ -95,7 +95,7 @@ if (commentsRoot) {
       });
 
     if (comments.length === 0) {
-      commentsList.innerHTML = '<p class="comments-empty">No responses yet. Be the first to share one.</p>';
+      commentsList.innerHTML = "";
       return;
     }
 
