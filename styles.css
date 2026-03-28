@@ -673,6 +673,120 @@ h3 {
   gap: 18px;
 }
 
+.article-comments {
+  width: 100%;
+  padding: 30px 32px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  display: grid;
+  gap: 20px;
+}
+
+.comments-list {
+  display: grid;
+  gap: 14px;
+}
+
+.comments-empty {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.comment-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.comment-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.comment-author-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-author {
+  font-size: 0.96rem;
+}
+
+.comment-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 100, 48, 0.14);
+  color: #ffb59c;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.comment-time {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.comment-body {
+  color: var(--muted);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.comment-form {
+  display: grid;
+  gap: 16px;
+}
+
+.field-help {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.comment-guidelines {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.comment-guidelines p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.comment-guidelines-check {
+  align-items: start;
+}
+
+.comment-form .modal-note:empty {
+  display: none;
+}
+
+.comment-form .modal-note.is-error {
+  border-color: rgba(255, 100, 48, 0.28);
+  color: #ffd4c7;
+}
+
 .insights-listing {
   display: grid;
   gap: 18px;
@@ -1293,7 +1407,8 @@ h3 {
   .article-hero,
   .article-body,
   .article-bio,
-  .article-cta {
+  .article-cta,
+  .article-comments {
     padding: 24px 22px;
     border-radius: 18px;
   }
@@ -1445,7 +1560,8 @@ h3 {
   .article-hero,
   .article-body,
   .article-bio,
-  .article-cta {
+  .article-cta,
+  .article-comments {
     padding: 20px 18px;
     border-radius: 16px;
   }
