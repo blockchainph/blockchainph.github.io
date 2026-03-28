@@ -754,8 +754,9 @@ h3 {
 }
 
 .comment-form textarea {
-  min-height: 180px;
+  min-height: 260px;
   resize: vertical;
+  border-radius: 18px;
 }
 
 .field-help {
