@@ -79,7 +79,8 @@ if (commentsRoot) {
 
     const commentsQuery = query(
       collection(db, "comments"),
-      where("articleSlug", "==", articleSlug)
+      where("articleSlug", "==", articleSlug),
+      where("isHidden", "==", false)
     );
 
     const snapshot = await getDocs(commentsQuery);
@@ -143,7 +144,13 @@ if (commentsRoot) {
 
         form.reset();
         setStatus("Your response has been posted.");
-        await loadComments();
+
+        try {
+          await loadComments();
+        } catch (refreshError) {
+          console.error(refreshError);
+          setStatus("Your response has been posted. Refresh the page if it does not appear right away.");
+        }
       } catch (error) {
         console.error(error);
         setStatus("Your response could not be posted right now. Please try again.", true);
