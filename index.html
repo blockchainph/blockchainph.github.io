@@ -48,9 +48,8 @@
           and ecosystem contributors working toward a more trusted and capable blockchain sector.
         </p>
         <div class="hero-actions">
-          <button class="primary-action" type="button" data-open-membership>Apply for Membership</button>
-          <a class="secondary-action" href="#join">Why Join BPAP</a>
-          <a class="text-link" href="/insights/">Read BPAP Insights</a>
+          <a class="primary-action" href="/insights/">Read BPAP Insights</a>
+          <a class="secondary-action" href="/academy/">Explore BPAP Academy</a>
         </div>
       </div>
       <div class="hero-mark">
@@ -114,42 +113,42 @@
       </div>
     </section>
 
-    <section class="section-card membership-benefits-card" id="join" data-reveal>
+    <section class="section-card membership-benefits-card" id="community" data-reveal>
       <div class="benefits-intro">
         <div class="feature-head">
-          <p class="eyebrow">Why Join BPAP</p>
-          <h2>Membership should lead to access, visibility, and meaningful professional connection.</h2>
+          <p class="eyebrow">Community Approach</p>
+          <h2>BPAP grows through referral, contribution, and trusted professional relationships.</h2>
         </div>
         <p class="body-copy">
-          BPAP membership is designed for practitioners who want to be part of a credible community,
-          contribute to the local ecosystem, and stay connected to serious blockchain conversations in the Philippines.
+          We are moving away from open public invitations to join. BPAP is being shaped through referrals,
+          introductions, and working relationships with practitioners who are already contributing meaningfully
+          to blockchain, cybersecurity, education, research, policy, and ecosystem development.
         </p>
       </div>
       <div class="benefits-grid">
         <article>
           <span class="benefit-number">01</span>
-          <h3>Access to ecosystem events</h3>
-          <p>Priority visibility into BPAP-led forums, working sessions, learning initiatives, and ecosystem engagements.</p>
+          <h3>Referral-led growth</h3>
+          <p>Membership is being approached through professional introduction and trusted network relationships rather than open promotion.</p>
         </article>
         <article>
           <span class="benefit-number">02</span>
-          <h3>Stronger professional network</h3>
-          <p>Connection to practitioners across technology, policy, compliance, research, academe, and industry.</p>
+          <h3>Contribution first</h3>
+          <p>We want BPAP to be defined by participation, substance, and professional credibility before scale.</p>
         </article>
         <article>
           <span class="benefit-number">03</span>
-          <h3>Ways to contribute</h3>
-          <p>Opportunities to take part in discussions, collaborations, and activities shaping blockchain in the Philippines.</p>
+          <h3>Selective and aligned</h3>
+          <p>The aim is to build a community of practitioners whose work, conduct, and direction fit the standards BPAP is trying to uphold.</p>
         </article>
         <article>
           <span class="benefit-number">04</span>
-          <h3>Credible association presence</h3>
-          <p>Visibility as part of a serious professional community advancing blockchain practice with trust and discipline.</p>
+          <h3>Open to the right conversations</h3>
+          <p>If you have been referred by a member, partner, or collaborator, BPAP can still be reached quietly through direct contact.</p>
         </article>
       </div>
       <div class="hero-actions">
-        <button class="primary-action" type="button" data-open-membership>Apply for Membership</button>
-        <a class="secondary-action" href="#contact">Contact BPAP</a>
+        <a class="primary-action" href="#contact">Contact BPAP</a>
       </div>
     </section>
 
@@ -305,7 +304,6 @@
       </p>
       <div class="hero-actions">
         <a class="primary-action" href="mailto:hello@blockchainph.org">hello@blockchainph.org</a>
-        <button class="secondary-action" type="button" data-open-membership>Apply for Membership</button>
       </div>
     </section>
 
@@ -323,106 +321,6 @@
       </div>
     </footer>
   </main>
-
-  <div class="modal-backdrop" data-membership-modal hidden>
-    <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="membership-modal-title">
-      <div class="modal-header">
-        <div>
-          <p class="eyebrow">BPAP Membership</p>
-          <h2 id="membership-modal-title">Apply for Membership</h2>
-        </div>
-        <button class="modal-close" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
-      </div>
-
-      <button class="modal-close modal-close-floating" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
-
-      <form class="membership-form" id="membership-form" novalidate>
-        <input type="hidden" id="membership-form-endpoint" value="https://formsubmit.co/ajax/hello@blockchainph.org">
-        <input type="hidden" id="membership-contact-email" value="hello@blockchainph.org">
-        <input type="hidden" name="_subject" value="New BPAP membership application">
-        <input type="hidden" name="_template" value="table">
-
-        <div class="form-grid">
-          <label>
-            1. Full Name
-            <input type="text" name="name" placeholder="Juan Dela Cruz" required>
-          </label>
-          <label>
-            2. Email Address
-            <input type="email" name="email" placeholder="name@company.com" required>
-          </label>
-          <label>
-            3. Mobile Number
-            <input type="tel" name="mobile" placeholder="+63 9XX XXX XXXX" required>
-          </label>
-          <label>
-            4. City / Province
-            <input type="text" name="location" placeholder="City / Province" required>
-          </label>
-          <label>
-            5. Organization / Company
-            <input type="text" name="organization" placeholder="Organization / Company" required>
-          </label>
-          <label>
-            6. Current Role or Profession
-            <input type="text" name="role" placeholder="Current Role or Profession" required>
-          </label>
-        </div>
-
-        <fieldset class="field-group">
-          <legend>7. Area of Expertise in Blockchain</legend>
-          <div class="checkbox-list">
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Development">Blockchain Development</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Research / Education">Blockchain Research / Education</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Crypto Trading / Investment">Crypto Trading / Investment</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Forensics / Investigations">Blockchain Forensics / Investigations</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Cybersecurity">Cybersecurity</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="DeFi / Web3">DeFi / Web3</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Government / Policy">Government / Policy</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Other">Other</label>
-          </div>
-        </fieldset>
-
-        <label>
-          8. Brief description of your blockchain experience
-          <textarea name="experience" rows="5" placeholder="Share your blockchain experience." required></textarea>
-        </label>
-
-        <fieldset class="field-group">
-          <legend>9. How would you like to contribute to BPAP?</legend>
-          <div class="checkbox-list">
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Speaker / Trainer">Speaker / Trainer</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Research Contributor">Research Contributor</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Community Builder">Community Builder</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Policy Discussions">Policy Discussions</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Industry Collaboration">Industry Collaboration</label>
-          </div>
-        </fieldset>
-
-        <label>
-          10. LinkedIn or Professional Profile
-          <input type="text" name="profile" placeholder="LinkedIn URL, profile link, or handle">
-        </label>
-
-        <button class="primary-action submit-action" id="membership-submit" type="submit">Submit Application</button>
-        <p class="privacy-note">
-          By submitting this form, you agree that BPAP may use the information provided to review your membership application and contact you about association-related matters.
-        </p>
-        <p class="modal-note" id="membership-form-status" aria-live="polite">
-          Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed.
-        </p>
-      </form>
-
-      <div class="success-panel" id="membership-success" hidden>
-        <p class="eyebrow">Application Received</p>
-        <h2>Thank you for submitting your membership application.</h2>
-        <p class="body-copy">
-          We have received your details and will review your submission. BPAP will contact you through the email address you provided once your membership application has been assessed.
-        </p>
-        <button class="primary-action submit-action" type="button" data-close-membership>Close</button>
-      </div>
-    </div>
-  </div>
 
   <div class="modal-backdrop" data-contribution-modal hidden>
     <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="contribution-modal-title">

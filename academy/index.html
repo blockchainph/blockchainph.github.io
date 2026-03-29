@@ -46,7 +46,7 @@
       </p>
       <div class="hero-actions">
         <button class="primary-action" type="button" data-open-academy data-course="General Academy Interest">Enroll</button>
-        <button class="secondary-action" type="button" data-open-membership>Become a Member</button>
+        
       </div>
     </section>
 
@@ -163,7 +163,7 @@
       </p>
       <div class="hero-actions">
         <button class="primary-action" type="button" data-open-academy data-course="General Academy Interest">Enroll</button>
-        <button class="secondary-action" type="button" data-open-membership>Become a Member</button>
+        
       </div>
     </section>
 
@@ -176,80 +176,10 @@
         <a href="mailto:hello@blockchainph.org">Email</a>
         <a href="/academy/">Academy</a>
         <a href="/insights/">Insights</a>
-        <button class="footer-button" type="button" data-open-membership>Become a Member</button>
+        
       </div>
     </footer>
   </main>
-
-  <div class="modal-backdrop" data-membership-modal hidden>
-    <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="membership-modal-title">
-      <div class="modal-header">
-        <div>
-          <p class="eyebrow">BPAP Membership</p>
-          <h2 id="membership-modal-title">Apply for Membership</h2>
-        </div>
-        <button class="modal-close" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
-      </div>
-
-      <button class="modal-close modal-close-floating" type="button" aria-label="Close membership form" data-close-membership>&times;</button>
-
-      <form class="membership-form" id="membership-form" novalidate>
-        <input type="hidden" id="membership-form-endpoint" value="https://formsubmit.co/ajax/hello@blockchainph.org">
-        <input type="hidden" id="membership-contact-email" value="hello@blockchainph.org">
-        <input type="hidden" name="_subject" value="New BPAP membership application">
-        <input type="hidden" name="_template" value="table">
-
-        <div class="form-grid">
-          <label>1. Full Name<input type="text" name="name" placeholder="Juan Dela Cruz" required></label>
-          <label>2. Email Address<input type="email" name="email" placeholder="name@company.com" required></label>
-          <label>3. Mobile Number<input type="tel" name="mobile" placeholder="+63 9XX XXX XXXX" required></label>
-          <label>4. City / Province<input type="text" name="location" placeholder="City / Province" required></label>
-          <label>5. Organization / Company<input type="text" name="organization" placeholder="Organization / Company" required></label>
-          <label>6. Current Role or Profession<input type="text" name="role" placeholder="Current Role or Profession" required></label>
-        </div>
-
-        <fieldset class="field-group">
-          <legend>7. Area of Expertise in Blockchain</legend>
-          <div class="checkbox-list">
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Development">Blockchain Development</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Research / Education">Blockchain Research / Education</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Crypto Trading / Investment">Crypto Trading / Investment</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Blockchain Forensics / Investigations">Blockchain Forensics / Investigations</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Cybersecurity">Cybersecurity</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="DeFi / Web3">DeFi / Web3</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Government / Policy">Government / Policy</label>
-            <label class="checkbox-item"><input type="checkbox" name="expertise" value="Other">Other</label>
-          </div>
-        </fieldset>
-
-        <label>8. Brief description of your blockchain experience<textarea name="experience" rows="5" placeholder="Share your blockchain experience." required></textarea></label>
-
-        <fieldset class="field-group">
-          <legend>9. How would you like to contribute to BPAP?</legend>
-          <div class="checkbox-list">
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Speaker / Trainer">Speaker / Trainer</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Research Contributor">Research Contributor</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Community Builder">Community Builder</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Policy Discussions">Policy Discussions</label>
-            <label class="checkbox-item"><input type="checkbox" name="contribution" value="Industry Collaboration">Industry Collaboration</label>
-          </div>
-        </fieldset>
-
-        <label>10. LinkedIn or Professional Profile<input type="text" name="profile" placeholder="LinkedIn URL, profile link, or handle"></label>
-
-        <button class="primary-action submit-action" id="membership-submit" type="submit">Submit Application</button>
-        <p class="privacy-note">By submitting this form, you agree that BPAP may use the information provided to review your membership application and contact you about association-related matters.</p>
-        <p class="modal-note" id="membership-form-status" aria-live="polite">Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed.</p>
-      </form>
-
-      <div class="success-panel" id="membership-success" hidden>
-        <p class="eyebrow">Application Received</p>
-        <h2>Thank you for submitting your membership application.</h2>
-        <p class="body-copy">We have received your details and will review your submission. BPAP will contact you through the email address you provided once your membership application has been assessed.</p>
-        <button class="primary-action submit-action" type="button" data-close-membership>Close</button>
-      </div>
-    </div>
-  </div>
 
   <div class="modal-backdrop" data-academy-modal hidden>
     <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="academy-modal-title">

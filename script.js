@@ -8,46 +8,6 @@ const sections = [...document.querySelectorAll("section[id]")];
 const carousels = document.querySelectorAll("[data-carousel]");
 const modalConfigs = [
   {
-    modal: document.querySelector("[data-membership-modal]"),
-    openButtons: document.querySelectorAll("[data-open-membership]"),
-    closeButtons: document.querySelectorAll("[data-close-membership]"),
-    form: document.querySelector("#membership-form"),
-    success: document.querySelector("#membership-success"),
-    statusNode: document.querySelector("#membership-form-status"),
-    submitButton: document.querySelector("#membership-submit"),
-    endpointNode: document.querySelector("#membership-form-endpoint"),
-    fallbackNode: document.querySelector("#membership-contact-email"),
-    defaultStatus:
-      "Thank you for your interest in the Blockchain Practitioners Association of the Philippines (BPAP). We will review your submission and contact you once your membership is confirmed.",
-    submitLabel: "Submit Application",
-    submittingLabel: "Submitting...",
-    errorMessage: "The form could not be submitted. Check the endpoint configuration and try again.",
-    buildMailtoPayload(formData, recipient) {
-      const subject = encodeURIComponent("BPAP membership application from " + formData.get("name"));
-      const expertise = formData.getAll("expertise").join(", ") || "-";
-      const contribution = formData.getAll("contribution").join(", ") || "-";
-      const body = encodeURIComponent(
-        [
-          "Full Name: " + formData.get("name"),
-          "Email Address: " + formData.get("email"),
-          "Mobile Number: " + (formData.get("mobile") || "-"),
-          "City / Province: " + (formData.get("location") || "-"),
-          "Organization / Company: " + (formData.get("organization") || "-"),
-          "Current Role or Profession: " + (formData.get("role") || "-"),
-          "Area of Expertise in Blockchain: " + expertise,
-          "",
-          "Brief description of blockchain experience:",
-          formData.get("experience"),
-          "",
-          "How would you like to contribute to BPAP?: " + contribution,
-          "LinkedIn or Professional Profile: " + (formData.get("profile") || "-")
-        ].join("\n")
-      );
-
-      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-    }
-  },
-  {
     modal: document.querySelector("[data-contribution-modal]"),
     openButtons: document.querySelectorAll("[data-open-contribution]"),
     closeButtons: document.querySelectorAll("[data-close-contribution]"),
