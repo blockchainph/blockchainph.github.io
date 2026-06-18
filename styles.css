@@ -667,6 +667,14 @@ h3 {
   gap: 12px;
 }
 
+.series-note {
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #ffb59c;
+  border-radius: 16px;
+  background: rgba(255, 181, 156, 0.055);
+}
+
 .article-block h2 {
   font-size: clamp(1.25rem, 2.4vw, 1.7rem);
 }
@@ -676,6 +684,18 @@ h3 {
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.8;
+}
+
+.article-block a,
+.article-cta a {
+  color: #ffb59c;
+  overflow-wrap: anywhere;
+  text-decoration-color: rgba(255, 181, 156, 0.55);
+}
+
+.article-block a:hover,
+.article-cta a:hover {
+  color: var(--text);
 }
 
 .article-block ul {
