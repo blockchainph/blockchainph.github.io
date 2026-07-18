@@ -144,6 +144,11 @@ if (commentsRoot) {
 
         form.reset();
         setStatus("Your response has been posted.");
+        window.SiteAnalytics?.track("comment_submit_success", {
+          site_name: "blockchainph.org",
+          page_path: window.location.pathname,
+          article_slug: articleSlug
+        });
 
         try {
           await loadComments();
@@ -154,6 +159,11 @@ if (commentsRoot) {
       } catch (error) {
         console.error(error);
         setStatus("Your response could not be posted right now. Please try again.", true);
+        window.SiteAnalytics?.track("comment_submit_error", {
+          site_name: "blockchainph.org",
+          page_path: window.location.pathname,
+          article_slug: articleSlug
+        });
       } finally {
         if (submitButton) {
           submitButton.disabled = false;

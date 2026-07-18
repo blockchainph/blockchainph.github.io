@@ -234,6 +234,12 @@ function openModal(config, triggerButton) {
   if (config.courseField && triggerButton && triggerButton.dataset.course) {
     config.courseField.value = triggerButton.dataset.course;
   }
+
+  window.SiteAnalytics?.track("modal_open", {
+    site_name: "blockchainph.org",
+    page_path: window.location.pathname,
+    modal_id: config.modal?.hasAttribute("data-academy-modal") ? "academy" : "contribution"
+  });
 }
 
 function closeModal(config) {
@@ -269,6 +275,12 @@ modalConfigs.forEach(config => {
 
     if (!config.form.reportValidity()) {
       setStatus(config, "Please complete the required fields before submitting.");
+      window.SiteAnalytics?.track("form_submit_validation_error", {
+        site_name: "blockchainph.org",
+        page_path: window.location.pathname,
+        form_id: config.form.id || "",
+        form_type: config.modal?.hasAttribute("data-academy-modal") ? "academy" : "contribution"
+      });
       return;
     }
 
@@ -287,6 +299,12 @@ modalConfigs.forEach(config => {
         if (config.success) {
           config.success.hidden = false;
         }
+        window.SiteAnalytics?.track("form_submit_success", {
+          site_name: "blockchainph.org",
+          page_path: window.location.pathname,
+          form_id: config.form.id || "",
+          form_type: config.modal?.hasAttribute("data-academy-modal") ? "academy" : "contribution"
+        });
         setSubmittingState(config, false);
         return;
       }
@@ -297,9 +315,21 @@ modalConfigs.forEach(config => {
       if (config.success) {
         config.success.hidden = false;
       }
+      window.SiteAnalytics?.track("form_submit_success", {
+        site_name: "blockchainph.org",
+        page_path: window.location.pathname,
+        form_id: config.form.id || "",
+        form_type: config.modal?.hasAttribute("data-academy-modal") ? "academy" : "contribution"
+      });
       setSubmittingState(config, false);
     } catch (error) {
       setStatus(config, config.errorMessage);
+      window.SiteAnalytics?.track("form_submit_error", {
+        site_name: "blockchainph.org",
+        page_path: window.location.pathname,
+        form_id: config.form.id || "",
+        form_type: config.modal?.hasAttribute("data-academy-modal") ? "academy" : "contribution"
+      });
       setSubmittingState(config, false);
     }
   });
