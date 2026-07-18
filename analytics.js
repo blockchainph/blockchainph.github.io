@@ -3,9 +3,11 @@
   const siteName = config.siteName || window.location.hostname || "site";
   const gaMeasurementId = (config.gaMeasurementId || "").trim();
   const clarityProjectId = (config.clarityProjectId || "").trim();
+  const consentKey = `${siteName}:analytics-consent`;
   const analyticsState = {
     gaLoaded: false,
-    clarityLoaded: false
+    clarityLoaded: false,
+    consent: null
   };
 
   window.dataLayer = window.dataLayer || [];
@@ -125,10 +127,182 @@
     }
   }
 
+  function getStoredConsent() {
+    try {
+      const stored = window.localStorage.getItem(consentKey);
+      return stored === "granted" || stored === "denied" ? stored : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setStoredConsent(value) {
+    try {
+      window.localStorage.setItem(consentKey, value);
+    } catch (error) {
+      return;
+    }
+  }
+
+  function removeConsentUi() {
+    document.querySelector("[data-analytics-banner]")?.remove();
+    document.querySelector("[data-analytics-settings]")?.remove();
+  }
+
+  function renderConsentUi() {
+    if (document.querySelector("[data-analytics-banner]")) {
+      return;
+    }
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .analytics-consent-banner {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 9999;
+        width: min(420px, calc(100vw - 32px));
+        padding: 18px 18px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        background: rgba(11, 15, 25, 0.96);
+        color: #e5edf8;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
+        backdrop-filter: blur(16px);
+      }
+      .analytics-consent-banner h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+        line-height: 1.3;
+      }
+      .analytics-consent-banner p {
+        margin: 0;
+        color: #c6d2e3;
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+      .analytics-consent-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .analytics-consent-actions button {
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid rgba(148, 163, 184, 0.32);
+        background: transparent;
+        color: #e5edf8;
+        font: inherit;
+        cursor: pointer;
+      }
+      .analytics-consent-actions .accept {
+        border-color: #c94a1b;
+        background: #c94a1b;
+        color: #ffffff;
+      }
+      .analytics-consent-settings {
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        z-index: 9998;
+        min-height: 38px;
+        padding: 0 12px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        background: rgba(11, 15, 25, 0.88);
+        color: #d7e3f4;
+        font: inherit;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+      }
+      @media (max-width: 640px) {
+        .analytics-consent-banner {
+          right: 16px;
+          bottom: 16px;
+          left: 16px;
+          width: auto;
+        }
+        .analytics-consent-settings {
+          left: 16px;
+          bottom: 16px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const settingsButton = document.createElement("button");
+    settingsButton.type = "button";
+    settingsButton.className = "analytics-consent-settings";
+    settingsButton.dataset.analyticsSettings = "true";
+    settingsButton.textContent = "Cookie settings";
+    settingsButton.hidden = true;
+    settingsButton.addEventListener("click", () => {
+      settingsButton.hidden = true;
+      renderConsentUi();
+    });
+    document.body.appendChild(settingsButton);
+
+    const banner = document.createElement("aside");
+    banner.className = "analytics-consent-banner";
+    banner.dataset.analyticsBanner = "true";
+    banner.innerHTML = `
+      <h2>Analytics preferences</h2>
+      <p>We use Google Analytics and Microsoft Clarity to understand visits, clicks, and content engagement. You can accept analytics or continue without them.</p>
+      <div class="analytics-consent-actions">
+        <button class="accept" type="button" data-analytics-accept>Accept analytics</button>
+        <button type="button" data-analytics-decline>Decline</button>
+      </div>
+    `;
+    document.body.appendChild(banner);
+
+    banner.querySelector("[data-analytics-accept]")?.addEventListener("click", () => {
+      setConsent("granted");
+    });
+    banner.querySelector("[data-analytics-decline]")?.addEventListener("click", () => {
+      setConsent("denied");
+    });
+  }
+
+  function showSettingsButton() {
+    const settingsButton = document.querySelector("[data-analytics-settings]");
+    if (settingsButton) {
+      settingsButton.hidden = false;
+    }
+  }
+
+  async function enableAnalytics() {
+    await Promise.allSettled([initGa(), initClarity()]);
+  }
+
+  function setConsent(value) {
+    analyticsState.consent = value;
+    setStoredConsent(value);
+    removeConsentUi();
+    renderConsentUi();
+    showSettingsButton();
+
+    if (value === "granted") {
+      enableAnalytics().then(() => {
+        track("analytics_consent_granted", {
+          site_name: siteName,
+          page_path: window.location.pathname,
+          page_title: document.title
+        });
+      });
+      return;
+    }
+
+    track("analytics_consent_declined", {
+      site_name: siteName,
+      page_path: window.location.pathname,
+      page_title: document.title
+    });
+  }
+
   window.gtag = window.gtag || gtag;
   window.SiteAnalytics = {
     config,
     track,
+    setConsent,
     ready() {
       return analyticsState.gaLoaded || analyticsState.clarityLoaded;
     }
@@ -163,5 +337,17 @@
     });
   });
 
-  Promise.allSettled([initGa(), initClarity()]).catch(() => {});
+  analyticsState.consent = getStoredConsent();
+  renderConsentUi();
+
+  if (analyticsState.consent === "granted") {
+    removeConsentUi();
+    renderConsentUi();
+    showSettingsButton();
+    enableAnalytics().catch(() => {});
+  } else if (analyticsState.consent === "denied") {
+    removeConsentUi();
+    renderConsentUi();
+    showSettingsButton();
+  }
 })();
