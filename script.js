@@ -6,6 +6,7 @@ const articleRevealNodes = document.querySelectorAll(".article-landing [data-rev
 const navLinks = document.querySelectorAll(".topnav a");
 const sections = [...document.querySelectorAll("section[id]")];
 const carousels = document.querySelectorAll("[data-carousel]");
+const certificateSearch = document.querySelector("[data-certificate-search]");
 const modalConfigs = [
   {
     modal: document.querySelector("[data-contribution-modal]"),
@@ -177,6 +178,79 @@ carousels.forEach(carousel => {
 
   updateCarousel(0);
 });
+
+if (certificateSearch) {
+  const queryInput = certificateSearch.querySelector("[data-certificate-query]");
+  const resultsNode = document.querySelector("[data-certificate-results]");
+  const dataNode = document.querySelector("#certificate-data");
+  let certificates = [];
+
+  try {
+    certificates = JSON.parse(dataNode?.textContent || "[]");
+  } catch (error) {
+    certificates = [];
+  }
+
+  function renderCertificateResults(matches, query) {
+    if (!resultsNode) {
+      return;
+    }
+
+    resultsNode.textContent = "";
+
+    if (!query) {
+      const emptyNode = document.createElement("p");
+      emptyNode.className = "certificate-empty";
+      emptyNode.textContent = "Enter your name to find your certificate.";
+      resultsNode.appendChild(emptyNode);
+      return;
+    }
+
+    if (matches.length === 0) {
+      const emptyNode = document.createElement("p");
+      emptyNode.className = "certificate-empty";
+      emptyNode.textContent = "No certificate found. Please check the spelling and try again.";
+      resultsNode.appendChild(emptyNode);
+      return;
+    }
+
+    matches.forEach(certificate => {
+      const resultNode = document.createElement("article");
+      resultNode.className = "certificate-result";
+
+      const nameNode = document.createElement("p");
+      nameNode.className = "certificate-name";
+      nameNode.textContent = certificate.name;
+
+      const linkNode = document.createElement("a");
+      linkNode.className = "secondary-action";
+      linkNode.href = certificate.url;
+      linkNode.target = "_blank";
+      linkNode.rel = "noopener noreferrer";
+      linkNode.textContent = "View / Download Certificate";
+
+      resultNode.append(nameNode, linkNode);
+      resultsNode.appendChild(resultNode);
+    });
+  }
+
+  function updateCertificateResults() {
+    const query = queryInput?.value.trim().toLocaleLowerCase() || "";
+    const matches = query
+      ? certificates.filter(certificate => certificate.name.toLocaleLowerCase().includes(query))
+      : [];
+
+    renderCertificateResults(matches, query);
+  }
+
+  certificateSearch.addEventListener("submit", event => {
+    event.preventDefault();
+    updateCertificateResults();
+  });
+
+  queryInput?.addEventListener("input", updateCertificateResults);
+  renderCertificateResults([], "");
+}
 
 function setStatus(config, message) {
   if (config.statusNode) {

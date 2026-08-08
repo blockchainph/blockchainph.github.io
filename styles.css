@@ -1039,6 +1039,94 @@ h3 {
   justify-items: center;
 }
 
+.training-landing {
+  max-width: 980px;
+}
+
+.training-hero {
+  gap: 16px;
+}
+
+.training-title {
+  max-width: 18ch;
+}
+
+.training-resource-card,
+.certificate-card {
+  display: grid;
+  gap: 20px;
+}
+
+.certificate-search {
+  display: grid;
+  gap: 10px;
+  max-width: 680px;
+}
+
+.certificate-search label {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.certificate-search input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.certificate-search input::placeholder {
+  color: #8f7a72;
+}
+
+.certificate-search input:focus {
+  outline: 2px solid rgba(255, 100, 48, 0.18);
+  border-color: var(--line-strong);
+}
+
+.certificate-results {
+  display: grid;
+  gap: 12px;
+}
+
+.certificate-empty,
+.certificate-result {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.certificate-empty {
+  padding: 18px 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.certificate-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+}
+
+.certificate-name {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.certificate-result .secondary-action {
+  flex: 0 0 auto;
+}
+
 .academy-status-pill {
   display: inline-flex;
   align-items: center;
@@ -1586,6 +1674,15 @@ h3 {
     margin-top: 10px;
   }
 
+  .certificate-result {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .certificate-result .secondary-action {
+    width: 100%;
+  }
+
   .insight-card {
     padding: 24px 22px;
     border-radius: 18px;
@@ -1724,6 +1821,16 @@ h3 {
   .insight-card {
     padding: 20px 18px;
     border-radius: 16px;
+  }
+
+  .certificate-search input {
+    min-height: 52px;
+    border-radius: 14px;
+  }
+
+  .certificate-empty,
+  .certificate-result {
+    border-radius: 14px;
   }
 
   .author-card {
