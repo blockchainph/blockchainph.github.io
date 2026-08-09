@@ -1048,7 +1048,10 @@ h3 {
 }
 
 .training-title {
-  max-width: 18ch;
+  max-width: 24ch;
+  font-size: clamp(2rem, 4.3vw, 3.35rem);
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 .training-resource-card,
