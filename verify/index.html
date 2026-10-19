@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verify a Certificate | BPAP</title>
+  <meta name="description" content="Verify a certificate issued by the Blockchain Practitioners Association of the Philippines.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'">
+  <link rel="icon" type="image/png" href="bpap-logo.png">
+  <link rel="stylesheet" href="verify.css">
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <img class="logo" src="bpap-logo.png" width="120" height="120" alt="Blockchain Practitioners Association of the Philippines">
+      <p class="eyebrow">Certificate verification</p>
+      <h1>Verify a certificate</h1>
+    </header>
+
+    <div id="result" class="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+    <section id="lookup" class="card" aria-labelledby="lookup-title" hidden>
+      <h2 id="lookup-title">Enter a certificate code</h2>
+      <p class="hint">The 8-character code is printed below the QR code on the certificate.</p>
+      <form method="get" action="./" id="lookup-form" novalidate>
+        <label for="code">Certificate code</label>
+        <div class="row">
+          <input id="code" name="id" type="text" inputmode="text" maxlength="8" minlength="8"
+                 autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false"
+                 placeholder="e.g. AB23CD45" aria-describedby="code-error">
+          <button type="submit" class="btn">Verify</button>
+        </div>
+        <p id="code-error" class="field-error" hidden></p>
+      </form>
+    </section>
+
+    <section id="filecheck" class="card" aria-labelledby="file-title" hidden>
+      <h2 id="file-title">Check a PDF</h2>
+      <p class="hint">Have the certificate file? Drop it here to confirm it is the exact file BPAP issued. The check runs in your browser and the file is never uploaded.</p>
+      <label id="drop" class="drop" for="pdf">
+        <span class="drop-title">Choose the certificate PDF</span>
+        <span class="drop-sub">or drag and drop it here</span>
+        <input id="pdf" type="file" accept="application/pdf,.pdf">
+      </label>
+      <div id="file-result" class="file-result" role="status" aria-live="polite" hidden></div>
+    </section>
+
+    <footer class="foot">
+      <p>Issued by Blockchain Practitioners Association of the Philippines.</p>
+      <p><a href="/">blockchainph.org</a></p>
+    </footer>
+  </main>
+  <script src="verify.js"></script>
+</body>
+</html>
